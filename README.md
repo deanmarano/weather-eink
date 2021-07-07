@@ -54,3 +54,15 @@ Specify what it takes to deploy your app.
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+
+# Weather URL
+Sigsbee lat,lon 42.95478577692492, -85.63894466729519
+`curl "api.openweathermap.org/data/2.5/weather?zip=49506&APPID=7517f45cadbf945821e6e32fc341d6f4&units=imperial"`
+Onecall for sigsbee `curl "api.openweathermap.org/data/2.5/onecall?lat=42.95478577692492&lon=-85.63894466729519&APPID=7517f45cadbf945821e6e32fc341d6f4&units=imperial&exclude=minutely"`
+
+## Docs
+* https://openweathermap.org/weather-data
+* https://openweathermap.org/weather-data
+* https://openweathermap.org/weather-conditions#How-to-get-icon-URL
+
+
