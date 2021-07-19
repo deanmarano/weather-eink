@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 function createBMP(canvas) {
@@ -10,9 +11,9 @@ function createBMP(canvas) {
 
   //create pixel array from canvas based on alpha
   var pixels = [];
-  for (var i = data.length - 1; i > 0; i -= 4) {
+  for (var i = data.length; i > 0; i -= 4) {
     if (i > 0) {
-      if (data[i] > 125) {
+      if (data[i - 2] < 200) {
         pixels.push('000000');
       } else {
         pixels.push('ffffff');
@@ -33,7 +34,7 @@ function createBMP(canvas) {
   }
   pixarray.reverse();
 
-  return bmp_mono(width, height, pixarray);
+  return bmp_mono(width + 1, height, pixarray);
 }
 
 /*
@@ -116,6 +117,9 @@ function _pack(num, len) {
 }
 
 export default class EinkCanvasComponent extends Component {
+  @tracked
+  dataurl;
+
   @action
   setupCanvas(canvas) {
     this.canvas = canvas;
@@ -137,6 +141,7 @@ export default class EinkCanvasComponent extends Component {
       this.context.drawImage(image, 10, 100);
     };
     image.src = url;
+    this.dataurl = 'data:image/bmp;base64,' + btoa(createBMP(this.canvas));
   }
 
   @action
@@ -147,7 +152,7 @@ export default class EinkCanvasComponent extends Component {
     let cYear = currentDate.getFullYear();
     event.target.download = `${cDay}/${cMonth}/${cYear}`;
     let bmp = this.canvas.toDataURL('image/bmp');
-    console.log(createBMP(this.canvas));
-    event.target.href = bmp;
+
+    event.target.href = this.dataurl;
   }
 }

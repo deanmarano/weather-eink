@@ -1,2 +1,12 @@
-<canvas {{did-insert this.setupCanvas}} local-class="canvas" width="240" height="416"></canvas>
+<div class="flex">
+  <div>
+    <h1>Canvas</h1>
+    <canvas {{did-insert this.setupCanvas}} local-class="canvas" width="240" height="416"></canvas>
+  </div>
+  <div>
+    <h1>BMP</h1>
+    <img src={{this.dataurl}} alt="">
+  </div>
+</div>
+<br>
 <a {{on "click" this.download}}>Download</a>
