@@ -129,8 +129,8 @@ export default class EinkCanvasComponent extends Component {
     this.context.font = '42px serif';
     this.context.fillStyle = 'black';
     this.context.fillText(`it's ${Math.floor(this.args.data.current.temp)}°`, 10, 50);
-    this.context.font = '24px serif';
     if(Math.abs(this.args.data.current.temp - this.args.data.current.feels_like) > 5) {
+      this.context.font = '24px serif';
       this.context.fillText('but it feels like', 10, 90);
       this.context.font = '42px serif';
       this.context.fillText(`${this.args.data.current.feels_like}°`, 60, 140);
