@@ -24,3 +24,7 @@
 /ember/.node_modules.ember-try/
 /ember/bower.json.ember-try
 /ember/package.json.ember-try
+
+
+/fetcher/node_modules/
+/fetcher/downloads/
