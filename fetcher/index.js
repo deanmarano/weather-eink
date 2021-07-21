@@ -17,7 +17,7 @@ async function main() {
     console.log('Clicking the link...');
     await page.click("a");
     console.log('Downloading...');
-    await page.waitFor(3000);
+    await page.waitFor(10000);
     browser.close();
     console.log('Done! Browser closed.');
     process.exit(0);
