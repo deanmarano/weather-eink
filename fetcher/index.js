@@ -13,7 +13,7 @@ async function main() {
     await page.setCacheEnabled(false);
     await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: './downloads'});
     console.log('Loading the page...');
-    await page.goto("http://192.168.1.7:4200", { waitUntil: 'networkidle2' });
+    await page.goto("http://192.168.1.6:4200", { waitUntil: 'networkidle2' });
     console.log('Clicking the link...');
     await page.click("a");
     console.log('Downloading...');
