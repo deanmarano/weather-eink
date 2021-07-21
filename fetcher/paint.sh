@@ -1,18 +1,21 @@
-#! /usr/bin/bash
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
-echo "*****git pull*****"
+echo "***** git pull *****"
 cd /home/dean/weather-eink
 git pull
 
 cd fetcher
-echo "*****current downloads*****"
+echo "***** current downloads *****"
 ls downloads
-echo "*****fetching latest bmp*****"
+echo "***** starting Node.js *****"
 node index.js
-echo "*****new downloads*****"
+echo "***** new downloads *****"
 ls downloads
 cp downloads/dark.bmp ../eink-example/pic/037-1yb1.bmp
 
 cd ../eink-example/
-echo "*****eink-example/epd*****"
+echo "***** eink-example/epd *****"
 ./epd
