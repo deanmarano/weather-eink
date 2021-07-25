@@ -15,6 +15,7 @@ node index.js
 echo "***** new downloads *****"
 ls downloads
 cp downloads/dark.bmp ../eink-example/pic/037-1yb1.bmp
+cp downloads/yellow.bmp ../eink-example/pic/037-1yy1.bmp
 
 cd ../eink-example/
 echo "***** eink-example/epd *****"
