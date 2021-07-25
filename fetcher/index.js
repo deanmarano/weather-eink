@@ -18,7 +18,7 @@ async function main() {
     let sleeps = 0;
     while(sleeps < 10) {
       let downloadLink = await page.$('.download-dark');
-      if(downloadLink.innerText ! === 'Loading...') {
+      if(downloadLink.innerText !== 'Loading...') {
         sleeps = 10;
       } else {
         sleeps++;
