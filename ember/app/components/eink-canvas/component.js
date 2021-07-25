@@ -13,7 +13,55 @@ function createBMP(canvas) {
   var pixels = [];
   for (var i = data.length; i > 0; i -= 4) {
     if (i > 0) {
-      if (data[i - 2] < 200) {
+      if (
+        data[i - 2] > 200 &&
+        !(
+          data[i] < 240 &&
+          data[i + 1] < 235 &&
+          data[i + 2] < 220
+        )
+      ) {
+        pixels.push('ffffff');
+      } else {
+        pixels.push('000000');
+      }
+    }
+  }
+
+  //unmirror
+  var pixarray = [];
+  for (i = height - 1; i > -1; i--) {
+    var row = [];
+    for (var j = 0; j < width; j++) {
+      row.push(pixels[i * width + j]);
+    }
+    for (j in row) {
+      pixarray.push(row[j]);
+    }
+  }
+  pixarray.reverse();
+
+  return bmp_mono(width + 1, height, pixarray);
+}
+
+function createYellowBMP(canvas) {
+  var context = canvas.getContext('2d');
+  var width = canvas.width;
+  var height = canvas.height;
+  var imageData = context.getImageData(0, 0, width, height);
+  var data = imageData.data;
+
+  //create pixel array from canvas based on alpha
+  var pixels = [];
+  for (var i = data.length; i > 0; i -= 4) {
+    if (i > 0) {
+      // 237 232 215 alpha
+      if (
+        50 < data[i] &&
+        data[i] < 240 &&
+        data[i + 1] < 235 &&
+        data[i + 2] < 220
+      ) {
         pixels.push('000000');
       } else {
         pixels.push('ffffff');
@@ -36,7 +84,6 @@ function createBMP(canvas) {
 
   return bmp_mono(width + 1, height, pixarray);
 }
-
 /*
 Create an uncompressed Windows bitmap (monochrome) given width, height and an
 array of pixels.
@@ -118,7 +165,13 @@ function _pack(num, len) {
 
 export default class EinkCanvasComponent extends Component {
   @tracked
-  dataurl;
+  darkDataUrl;
+
+  @tracked
+  yellowDataUrl;
+
+  @tracked
+  ready;
 
   @action
   setupCanvas(canvas) {
@@ -141,7 +194,11 @@ export default class EinkCanvasComponent extends Component {
     image.crossOrigin = 'anonymous'; // This enables CORS
     image.onload = () => {
       this.context.drawImage(image, 240 / 2 - 100, 200, 200, 200);
-      this.dataurl = 'data:image/bmp;base64,' + btoa(createBMP(this.canvas));
+      this.darkDataUrl =
+        'data:image/bmp;base64,' + btoa(createBMP(this.canvas));
+      this.yellowDataUrl =
+        'data:image/bmp;base64,' + btoa(createYellowBMP(this.canvas));
+      this.ready = true;
     };
     image.src = url;
   }
@@ -154,6 +211,6 @@ export default class EinkCanvasComponent extends Component {
     // let cYear = currentDate.getFullYear();
     //event.target.download = `${cYear}.${cMonth}.${cDay}.bmp`;
     event.target.download = `dark.bmp`;
-    event.target.href = this.dataurl;
+    event.target.href = this.darkDataUrl;
   }
 }

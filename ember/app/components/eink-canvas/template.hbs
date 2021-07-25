@@ -4,9 +4,14 @@
     <canvas {{did-insert this.setupCanvas}} local-class="canvas" width="240" height="416"></canvas>
   </div>
   <div>
-    <h1>BMP</h1>
-    <img src={{this.dataurl}} alt="">
+    <h1>BMP Dark</h1>
+    <img local-class="bmp-dark" src={{this.darkDataUrl}} alt="">
+  </div>
+  <div>
+    <h1>BMP Yellow</h1>
+    <img local-class="bmp-yellow" src={{this.yellowDataUrl}} alt="">
   </div>
 </div>
 <br>
-<a {{on "click" this.download}}>Download</a>
+<a class="download-dark" href={{this.darkDataUrl}}>{{if ready "Download Dark" "Loading..."}}</a>
+<a class="download-yellow" href={{this.yellowDataUrl}}>{{if ready "Download Yellow" "Loading..."}}</a>
