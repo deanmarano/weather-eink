@@ -44,6 +44,14 @@ function createBMP(canvas) {
   return bmp_mono(width + 1, height, pixarray);
 }
 
+function isDark(data, i) {
+  return 220 > data[i] && 220 > data[i + 1] && 220 > data[i + 2];
+}
+
+function isLight(data, i) {
+  return 220 < data[i] && 220 < data[i + 1] && 220 < data[i + 2];
+}
+
 function createYellowBMP(canvas) {
   var context = canvas.getContext('2d');
   var width = canvas.width;
@@ -55,13 +63,7 @@ function createYellowBMP(canvas) {
   var pixels = [];
   for (var i = data.length; i > 0; i -= 4) {
     if (i > 0) {
-      // 237 232 215 alpha
-      if (
-        50 < data[i] &&
-        data[i] < 240 &&
-        data[i + 1] < 235 &&
-        data[i + 2] < 220
-      ) {
+      if (!isDark(data, i) && !isLight(data, i)) {
         pixels.push('000000');
       } else {
         pixels.push('ffffff');
